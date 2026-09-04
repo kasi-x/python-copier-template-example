@@ -1,0 +1,37 @@
+# Run in a container
+
+Pre-built containers with python-copier-template-example and its dependencies already
+installed are available on [Github Container Registry](https://ghcr.io/kasi-x/python-copier-template-example).
+
+## Starting the container
+
+Pre-built images are published to the container registry on every release.
+To pull the container from github container registry and run:
+
+```
+$ docker run ghcr.io/kasi-x/python-copier-template-example:latest --version
+```
+
+To get a released version, use a numbered release instead of `latest`.
+
+
+
+## Logging in the cloud
+
+Logs go to stderr as human-readable console text by default; set the
+`LOG_FORMAT=json` environment variable to switch to one-JSON-object-per-line
+instead, which log aggregators (CloudWatch Logs, Cloud Logging, Azure
+Monitor, journald, ...) can parse. This is independent of which (if any)
+cloud SDK dependencies were added, and of which platform runs the
+container — the same image works locally (console) and in any cloud
+(JSON), so there's nothing extra to build per target: just set the
+environment variable wherever the container runs.
+
+[Render](https://render.com/docs/logging), [Railway](https://docs.railway.com/guides/structured-logging-production)
+and [Vercel](https://vercel.com/kb/guide/add-structured-application-logs-to-vercel-functions)
+all colour-code and filter by severity in their log viewer if the JSON has a
+`level` + `message` field pair; `logging_setup.py`'s JSON mode already uses
+`level` but names the message field `event` (structlog's own convention), so
+those three won't pick up severity colouring out of the box. If that
+matters to you, swap `"event"` for `"message"` in `logging_setup.py` — logs
+are fully readable either way, this only affects that colouring/filtering.

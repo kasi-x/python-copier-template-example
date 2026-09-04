@@ -1,0 +1,126 @@
+
+version: '3'
+
+tasks:
+  default:
+    desc: Show available tasks
+    cmd: task --list
+
+  lint:
+    desc: "Run pre-commit on all files"
+
+    cmds:
+
+      - "uv run --locked pre-commit run --all-files --show-diff-on-failure"
+
+
+  code-fix:
+    desc: "Auto-fix lint findings (ruff check --fix + format)"
+
+    cmds:
+
+      - "uv run --locked ruff check --fix ."
+
+      - "uv run --locked ruff format ."
+
+
+  type-check:
+    desc: "Run basedpyright + pyrefly + static analysis"
+
+    cmds:
+
+      - "uv run --locked basedpyright"
+
+      - "uv run --locked pyrefly check"
+
+      - "uv run --locked vulture src/python_copier_template_example --min-confidence 80"
+
+      - "uv run --locked deptry ."
+
+      - "uv run --locked typos ."
+
+
+  audit:
+    desc: "Audit dependencies for known vulnerabilities (needs network)"
+
+    cmds:
+
+      - "uv run --locked pip-audit"
+
+
+  license-check:
+    desc: "Check dependency licenses comply with Apache-2.0 (needs network)"
+
+    cmds:
+
+      - "uv run --locked pip-licenses --from=mixed --partial-match --fail-on=GPL"
+
+
+  test:
+    desc: "Run tests with coverage"
+
+    cmds:
+
+      - "uv run --locked pytest --cov=src/python_copier_template_example --cov-report term --cov-report xml:cov.xml"
+
+
+  docs:
+    desc: "Build documentation"
+
+    cmds:
+
+      - "uv run --locked zensical build"
+
+
+  docs-serve:
+    desc: "Serve documentation with live reload"
+
+    cmds:
+
+      - "uv run --locked zensical serve"
+
+
+  marimo:
+    desc: "Launch marimo notebook editor"
+
+    cmds:
+
+      - "uv run --extra experiment --locked marimo edit notebooks"
+
+
+  notebook:
+    desc: "Launch Jupyter on notebooks/"
+
+    cmds:
+
+      - "uv run --extra experiment --locked jupyter lab notebooks/ --allow-root"
+
+
+  paper:
+    desc: "Render the paper to arxiv-pdf and html"
+
+    cmds:
+
+      - "quarto render paper/paper.qmd"
+
+
+  slides:
+    desc: "Render the slides to reveal.js html"
+
+    cmds:
+
+      - "quarto render slides/slides.qmd"
+
+
+  paper-api:
+    desc: "Build the quartodoc API reference"
+
+    cmds:
+
+      - "uv run --locked quartodoc build --config _quarto.yml"
+
+
+  check:
+    desc: "Run all quality checks"
+
+    deps: [lint, type-check, test]

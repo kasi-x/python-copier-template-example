@@ -1,0 +1,97 @@
+name: CI
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+  pull_request:
+
+jobs:
+
+  lint:
+    uses: ./.github/workflows/_tasks.yml
+    with:
+      task_runner: task
+      task: lint,type-check,license-check
+
+  test:
+    strategy:
+      matrix:
+        runs-on: ["ubuntu-latest"] # can add windows-latest, macos-latest
+
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+
+      fail-fast: false
+
+
+
+    uses: ./.github/workflows/_test.yml
+    with:
+      runs-on: ${{ matrix.runs-on }}
+      python-version: ${{ matrix.python-version }}
+      task_runner: task
+
+
+  container:
+    needs: test
+    if: always()
+    uses: ./.github/workflows/_container.yml
+    with:
+      publish: ${{ needs.test.result == 'success' }}
+      smoke-command: --version
+    permissions:
+      contents: read
+      packages: write
+
+  docs:
+    uses: ./.github/workflows/_docs.yml
+    with:
+      task_runner: task
+    permissions:
+      contents: write
+
+
+  dist:
+    uses: ./.github/workflows/_dist.yml
+  
+  pypi:
+    needs: [dist, test]
+    if: github.ref_type == 'tag'
+    uses: ./.github/workflows/_pypi.yml
+    permissions:
+      id-token: write
+  
+  release:
+    needs: [dist, test, docs]
+    if: github.ref_type == 'tag'
+    uses: ./.github/workflows/_release.yml
+    permissions:
+      contents: write
+
+  required-checks-passed:
+    name: all required checks passed
+    needs: [lint, test, container, docs, dist]
+
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check all required jobs passed
+        run: |
+          failing=$(echo '${{ toJSON(needs) }}' | jq -r '
+            to_entries[] |
+            select(.value.result != "success" and .value.result != "skipped") |
+            "\(.key): \(.value.result)"
+          ')
+          if [ -n "$failing" ]; then
+            echo "$failing"
+            exit 1
+          fi

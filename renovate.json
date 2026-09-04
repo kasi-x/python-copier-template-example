@@ -1,0 +1,110 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":configMigration",
+    ":enableVulnerabilityAlerts",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "vulnerabilityAlerts": {
+    "automerge": true
+  },
+  "lockFileMaintenance": {
+    "description": "Keep the uv.lock up to date, merging if tests pass",
+    "enabled": true,
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "description": "Disable python version as that is managed by python-copier-template",
+      "matchManagers": [
+        "pyenv"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Core CI actions managed by python-copier-template (checkout, toolchain setup, lint/test helpers)",
+      "matchPackageNames": [
+        "actions/checkout",
+        "astral-sh/setup-uv",
+        "prefix-dev/setup-pixi",
+        "snok/install-poetry",
+        "actions/upload-artifact",
+        "actions/download-artifact",
+        "arduino/setup-task",
+        "extractions/setup-just",
+        "zizmorcore/zizmor-action"
+      ],
+      "matchManagers": [
+        "github-actions"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Release actions managed by python-copier-template (release notes, coverage, changelog)",
+      "matchPackageNames": [
+        "softprops/action-gh-release",
+        "orhun/git-cliff-action",
+        "codecov/codecov-action"
+      ],
+      "matchManagers": [
+        "github-actions"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Container actions managed by python-copier-template",
+      "matchPackageNames": [
+        "docker/setup-buildx-action",
+        "docker/login-action",
+        "docker/build-push-action",
+        "docker/metadata-action"
+      ],
+      "matchManagers": [
+        "github-actions"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "PyPI publish action managed by python-copier-template",
+      "matchPackageNames": [
+        "pypa/gh-action-pypi-publish"
+      ],
+      "matchManagers": [
+        "github-actions"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Docs deploy action managed by python-copier-template",
+      "matchPackageNames": [
+        "peaceiris/actions-gh-pages"
+      ],
+      "matchManagers": [
+        "github-actions"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "FAIR compliance action managed by python-copier-template",
+      "matchPackageNames": [
+        "fair-software/howfairis-github-action"
+      ],
+      "matchManagers": [
+        "github-actions"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Disable Dockerfile base images that are managed by python-copier-template",
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchDepNames": [
+        "ubuntu",
+        "ghcr.io/kasi-x/ubuntu-devcontainer"
+      ],
+      "enabled": false
+    }
+  ]
+}

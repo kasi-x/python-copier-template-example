@@ -1,0 +1,13 @@
+version = 1
+
+SPDX-PackageName = "python-copier-template-example"
+SPDX-PackageSupplier = "kashi-x <kashimiya.exe@gmail.com>"
+SPDX-PackageDownloadLocation = "https://github.com/kasi-x/python-copier-template-example"
+
+# Project-wide default: every file inherits the project license and
+# copyright.
+[[annotations]]
+path = ["**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 kashi-x"
+SPDX-License-Identifier = "Apache-2.0"
