@@ -100,16 +100,6 @@ uv sync                      # create .venv and install everything (incl. dev de
 pre-commit install           # install the git hooks (lint/format on commit)
 ```
 
-### Environment variables
-
-Copy the example file and adjust the values:
-
-```sh
-cp .env.example .env
-```
-
-`.env` is loaded automatically by [direnv](https://direnv.net) (see `.envrc`)
-and by the Docker stack; it is git-ignored, so never commit real secrets.
 
 
 ### Run with Docker

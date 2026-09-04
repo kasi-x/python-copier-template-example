@@ -102,7 +102,7 @@
       ],
       "matchDepNames": [
         "ubuntu",
-        "ghcr.io/kasi-x/ubuntu-devcontainer"
+        "ghcr.io/diamondlightsource/ubuntu-devcontainer"
       ],
       "enabled": false
     }
