@@ -7,15 +7,15 @@ tasks:
     cmd: task --list
 
   lint:
-    desc: "Run pre-commit on all files"
+    desc: "Check formatting and lint (ruff, check-only)"
 
     cmds:
 
-      - "uv run --locked pre-commit run --all-files --show-diff-on-failure"
+      - "uv run --locked ruff format --check . && uv run --locked ruff check ."
 
 
-  code-fix:
-    desc: "Auto-fix lint findings (ruff check --fix + format)"
+  fix:
+    desc: "Auto-fix formatting and lint (run before committing)"
 
     cmds:
 

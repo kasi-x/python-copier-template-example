@@ -9,14 +9,19 @@ guide is [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md).
 The `task` task runner drives the common commands:
 
 ```sh
-task lint           # pre-commit on all files
+task fix            # auto-fix formatting and lint
+task lint           # ruff format --check + ruff check (check-only)
 task test           # pytest
 task type-check     # type checker + static analysis
 task check          # everything above
 ```
 
-Run `task check` (or `lint` + `test`
+Run `task fix` before committing to apply formatting
+and lint fixes, then `task check` (or `lint` + `test`
 + `type-check` individually) before finishing a change.
+The repo-hygiene checks (secrets, workflow linting, YAML validity,
+conventional commit messages) run in CI, not as local hooks — the lint and
+fix tasks work anywhere, including outside a git repository.
 
 Type checking uses basedpyright plus `pyrefly`; `deptry`,
 `vulture`, and `typos` also run as part of type-check.

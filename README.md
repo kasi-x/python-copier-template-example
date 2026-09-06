@@ -12,7 +12,6 @@
 [![License](https://img.shields.io/badge/License-Apache--2.0-4B32C3.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-3776AB.svg?logo=python&logoColor=white)](https://github.com/kasi-x/python-copier-template-example)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-black.json)](https://github.com/copier-org/copier)
 [![Documentation](https://img.shields.io/badge/docs-https://kasi-x.github.io/python-copier-template-example-8A2BE2?logo=gitbook&logoColor=white)](https://kasi-x.github.io/python-copier-template-example)
 
@@ -97,8 +96,11 @@ git clone https://github.com/kasi-x/python-copier-template-example.git
 cd python-copier-template-example
 uv sync                      # create .venv and install everything (incl. dev deps)
 
-pre-commit install           # install the git hooks (lint/format on commit)
 ```
+
+Before committing, run the `fix` task to auto-fix formatting and lint
+(`ruff check --fix` + `ruff format`); repo hygiene (secret scanning, workflow
+linting, conventional commit messages) is enforced in CI.
 
 
 
@@ -122,7 +124,8 @@ See [Run in a container](https://kasi-x.github.io/python-copier-template-example
 The project uses [Task](https://taskfile.dev) to drive the common commands:
 
 ```sh
-task lint           # pre-commit on all files
+task lint           # ruff format --check + ruff check
+task fix            # auto-fix formatting and lint
 task type-check     # type checker + static analysis
 task test           # pytest
 task docs           # build the documentation site

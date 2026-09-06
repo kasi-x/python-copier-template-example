@@ -33,7 +33,6 @@ dev = [
     "basedpyright",
     "zensical",
     "mkdocstrings[python]",
-    "pre-commit",
     "pyrefly",
         "pytest",
     "pytest-cov",
@@ -229,8 +228,16 @@ lint.extend-ignore = [
     "PT029",   # pytest-warns-without-warning
     "TID254",  # lazy-import-mismatch
     "TID255",  # lazy-import-immediately-resolved
+    # Parsing naive input (user text, filenames, log timestamps) and then
+    # attaching the project tz via `.replace(tzinfo=...)` is a common correct
+    # pattern that DTZ007 cannot see; drop this ignore once formats carry %z.
+    "DTZ007",  # call-datetime-strptime-without-zone
     "FA",
 ]
+# Pin PT001 to the bare `@pytest.fixture` style the template ships:
+# without this pin, a ruff default flip would silently restyle every test
+# file. `ruff check --fix` rewrites `@pytest.fixture()` to the bare form.
+lint.flake8-pytest-style.fixture-parentheses = false
 lint.task-tags = [
     # Future
     "WIP",

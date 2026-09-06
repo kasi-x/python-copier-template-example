@@ -23,6 +23,10 @@ jobs:
       task_runner: task
       task: lint,type-check,license-check
 
+  hygiene:
+    uses: ./.github/workflows/_hygiene.yml
+
+
   test:
     strategy:
       matrix:
@@ -62,6 +66,10 @@ jobs:
 
   dist:
     uses: ./.github/workflows/_dist.yml
+    with:
+      # The exact check for the installed wheel: <pkg> ships a `--version`
+      # CLI; web_api's app/ has no CLI entry point, so import it instead.
+      version-command: python -m python_copier_template_example --version
   
   pypi:
     needs: [dist, test]
@@ -79,7 +87,7 @@ jobs:
 
   required-checks-passed:
     name: all required checks passed
-    needs: [lint, test, container, docs, dist]
+    needs: [hygiene, lint, test, container, docs, dist]
 
     if: always()
     runs-on: ubuntu-latest
