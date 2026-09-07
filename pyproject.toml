@@ -80,6 +80,10 @@ experiment = [
 
 [tool.setuptools_scm]
 version_file = "src/python_copier_template_example/_version.py"
+# Publish pipelines generate first and `git init` later: without git
+# metadata setuptools_scm aborts every uv sync, so fall back to a
+# placeholder until the first commit provides the real version.
+fallback_version = "0.0.0"
 
 
 
