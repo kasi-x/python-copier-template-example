@@ -145,6 +145,20 @@ running tests and making a release.
 Contributions are welcome! See [CONTRIBUTING.md](.github/CONTRIBUTING.md) and the
 [issue tracker](https://github.com/kasi-x/python-copier-template-example/issues).
 
+## 🔄 Updating from the template
+
+This project records its template answers in `.copier-answers.yml`, so it can
+receive template improvements later. To update:
+
+```sh
+uvx --with copier-template-extensions copier update --trust --vcs-ref=main
+```
+
+Resolve any conflicts, run `task fix` and
+`task check`, then commit. See the template's
+[adopt/update guide](https://kasi-x.github.io/python-copier-template/main/tutorials/adopt-existing.html)
+for the conflict-resolution workflow.
+
 
 ## 📝 How to Cite
 
