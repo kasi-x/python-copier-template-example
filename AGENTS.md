@@ -44,6 +44,7 @@ Data, notebooks, and reports (`data/`, `notebooks/`, `models/`,
 ## Commits and CI
 
 - Use [Conventional Commits](https://www.conventionalcommits.org/)
-  (`feat:`, `fix:`, ...); the commit-msg hook enforces it.
+  (`feat:`, `fix:`, ...); the repository's hygiene CI enforces it on commit
+  messages and the PR title.
 - CI runs lint, type-check, and tests on every push
  plus a docs build; keep all of them green.

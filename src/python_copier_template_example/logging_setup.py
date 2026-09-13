@@ -1,4 +1,3 @@
-
 """ロギング設定 (structlog)。
 
 既定は人間向けの開発表示、`LOG_FORMAT=json` で cron / systemd / 集約ログ向けの

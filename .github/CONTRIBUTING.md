@@ -17,16 +17,43 @@ Github also offers [discussions](https://github.com/kasi-x/python-copier-templat
 your issue is open ended and it is not obvious when it can be "closed", please
 raise it as a discussion instead.
 
+## Setting up a development environment
+
+It is recommended that developers use a [vscode devcontainer](https://code.visualstudio.com/docs/devcontainers/containers). This repository contains configuration to set up a containerized development environment that suits its own needs. Outside a container, the README's installation section has the exact commands for this project.
+
+## Common commands
+
+The `task` task runner drives the common commands:
+
+```sh
+task fix            # auto-fix formatting and lint
+task lint           # ruff format --check + ruff check (check-only)
+task test           # pytest
+task type-check     # type checker + static analysis
+task check          # everything above
+```
+
+Run `task fix` before committing to apply formatting and lint
+fixes, then `task check` before finishing a change. The
+repo-hygiene checks (secrets, workflow linting, YAML validity, conventional
+commit messages) run in CI, not as local hooks — the fix and check commands
+work anywhere, including outside a git repository.
+
 ## Code Coverage
 
 While 100% code coverage does not make a library bug-free, it significantly
 reduces the number of easily caught bugs! Please make sure coverage remains the
 same or is improved by a pull request!
 
-## Developer Information
+## Commits and CI
 
-It is recommended that developers use a [vscode devcontainer](https://code.visualstudio.com/docs/devcontainers/containers). This repository contains configuration to set up a containerized development environment that suits its own needs.
+- Use [Conventional Commits](https://www.conventionalcommits.org/)
+  (`feat:`, `fix:`, ...); the repository's hygiene CI enforces it on commit
+  messages and the PR title.
+- CI runs lint, type-check, and tests on every push plus a docs
+  build; keep all of them green.
 
-This project was created using the [python-copier-template](https://github.com/kasi-x/python-copier-template-example) for Python projects.
-
-For more information on common tasks like setting up a developer environment, running the tests, and the lint workflow, see the template's [How-to guides](https://kasi-x.github.io/python-copier-template/6.0.0/how-to.html).
+This project was created using the
+[python-copier-template](https://github.com/kasi-x/python-copier-template) for
+Python projects. Its documentation lives at
+<https://kasi-x.github.io/python-copier-template/>.
