@@ -29,4 +29,4 @@ It is recommended that developers use a [vscode devcontainer](https://code.visua
 
 This project was created using the [python-copier-template](https://github.com/kasi-x/python-copier-template-example) for Python projects.
 
-For more information on common tasks like setting up a developer environment, running the tests, and the lint workflow, see the template's [How-to guides](https://kasi-x.github.io/python-copier-template/5.4.0/how-to.html).
+For more information on common tasks like setting up a developer environment, running the tests, and the lint workflow, see the template's [How-to guides](https://kasi-x.github.io/python-copier-template/6.0.0/how-to.html).

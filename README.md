@@ -151,7 +151,7 @@ This project records its template answers in `.copier-answers.yml`, so it can
 receive template improvements later. To update:
 
 ```sh
-uvx copier update --trust --vcs-ref=main
+uvx copier update --trust --defaults
 ```
 
 Resolve any conflicts, run `task fix` and
