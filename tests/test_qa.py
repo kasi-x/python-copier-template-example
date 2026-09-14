@@ -26,9 +26,16 @@ _EXCLUDED = {"python_copier_template_example._version"}
 
 def _package_modules() -> list[str]:
     """Dotted names of every importable module under the package directory."""
+    # The magic trailing comma keeps this call expanded, which in turn keeps
+    # the generator expanded: without it ruff's formatter collapses the whole
+    # `sorted(...)` onto one line whenever the package name is short enough,
+    # and the shipped file is then unformatted at line-length 120.
     return sorted(
         info.name
-        for info in pkgutil.walk_packages([str(PKG_DIR)], prefix="python_copier_template_example.")
+        for info in pkgutil.walk_packages(
+            [str(PKG_DIR)],
+            prefix="python_copier_template_example.",
+        )
         if info.name not in _EXCLUDED
     )
 
