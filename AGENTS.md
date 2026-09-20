@@ -54,9 +54,10 @@ Data, notebooks, and reports (`data/`, `notebooks/`, `models/`,
 Field rules the generator matched to this project kind (crypto choices,
 dependency license drift, data-collection copyright, LLM/MCP tool
 security, model-evaluation fairness), plus the rules your `domain_traits`
-answer selected (biometric identification, medical device software). Each
-section opens with a scope blockquote: if its triggers do not apply to the
-code you are editing, skip that section. Sections are written in Japanese.
+answer selected (personal data, biometric identification, medical device
+software). Each section opens with a scope blockquote: if its triggers do
+not apply to the code you are editing, skip that section. Sections are
+written in Japanese.
 
 # ライセンス変動 — 依存の現行ライセンスを追跡し、BSL/SSPL混入を防ぐ
 
@@ -208,7 +209,9 @@ BSL適用後コードの不正利用を主張する書簡を送付し、OpenTofu
 # MLバイアス — 集団別評価・説明可能性・人間確認を評価に組み込む
 
 > **適用条件**: モデル学習・評価パイプライン、スクリーニング/判定
-> ロジック、データセット構築で、人に関する予測を扱う場面。
+> ロジック、データセット構築で、人に関する予測や判断を扱う場面。
+> 人について自動的に決める場合(評価・順位付け・承認・審査・照合)は、
+> 精度の高低にかかわらず本節の対象。
 > 規模: 世界問題(偏ったデータはどの国の集団にも不利に働き得る)。
 > 配布: data-science / kaggle(モデル学習・評価を含むもの)。
 > 要約: (1)平均精度だけでなく集団別の性能を必ず出す (2)protected
