@@ -53,9 +53,10 @@ Data, notebooks, and reports (`data/`, `notebooks/`, `models/`,
 
 Field rules the generator matched to this project kind (crypto choices,
 dependency license drift, data-collection copyright, LLM/MCP tool
-security, model-evaluation fairness). Each section opens with a scope
-blockquote: if its triggers do not apply to the code you are editing,
-skip that section. Sections are written in Japanese.
+security, model-evaluation fairness), plus the rules your `domain_traits`
+answer selected (biometric identification, medical device software). Each
+section opens with a scope blockquote: if its triggers do not apply to the
+code you are editing, skip that section. Sections are written in Japanese.
 
 # ライセンス変動 — 依存の現行ライセンスを追跡し、BSL/SSPL混入を防ぐ
 

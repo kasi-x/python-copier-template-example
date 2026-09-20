@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier
-_commit: 6.0.0-146-g9b13f95
+_commit: 6.0.0-148-g3da5f17
 _src_path: https://github.com/kasi-x/python-copier-template.git
 allow_japanese: true
 author_email: kashimiya.exe@gmail.com
@@ -19,6 +19,7 @@ description: An expanded https://github.com/kasi-x/python-copier-template to ill
 distribution_name: kasi-x-python-copier-template-example
 docker: true
 docs_type: zensical
+domain_traits: []
 existing_project: false
 fair: true
 git_platform: github.com
