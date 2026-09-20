@@ -55,7 +55,8 @@ Field rules the generator matched to this project kind (crypto choices,
 dependency license drift, data-collection copyright, LLM/MCP tool
 security, model-evaluation fairness), plus the rules your `domain_traits`
 answer selected (personal data, biometric identification, medical device
-software). Each section opens with a scope blockquote: if its triggers do
+software), and the EU Cyber Resilience Act's duties where the project is
+sold or packaged as a product. Each section opens with a scope blockquote: if its triggers do
 not apply to the code you are editing, skip that section. Sections are
 written in Japanese.
 
