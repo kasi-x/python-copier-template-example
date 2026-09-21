@@ -69,6 +69,36 @@ python -m python_copier_template_example --version
 > See the [documentation](https://kasi-x.github.io/python-copier-template-example) for tutorials, how-to guides and the API reference.
 
 
+
+## 📄 Paper and slides
+
+The research-writing scaffold ships alongside the analysis tree:
+`paper/paper.qmd` renders to an arXiv-style PDF and HTML and
+`slides/slides.qmd` to a reveal.js deck (both format themes are vendored —
+[arxiv](https://github.com/mikemahoney218/arxiv) and
+[clean](https://github.com/grantmcdermott/quarto-revealjs-clean), MIT — so
+there is no `quarto add` step for them), and `quartodoc` generates the API
+reference in
+`docs/reference/` from the package docstrings. The paper **executes** in this
+environment (`jupyter: python3`), reads tables and figures from `outputs/`
+(`src/` writes them, the paper includes them — never paste a number by hand)
+and cites from `references/references.bib`.
+
+```sh
+# one-time setup: Quarto (https://quarto.org) plus, for the PDF, its TinyTeX
+quarto install tinytex
+quarto add machow/quartodoc
+
+# render (paper → paper/paper.pdf + .html, slides → the deck, docs → API pages)
+task paper
+task slides
+task paper-api
+```
+
+There is no CI job for the paper on purpose: renders are heavy and
+font-sensitive, so they run when *you* need them, not on every push.
+
+
 ## 🧰 What's included
 
 What            | Where
@@ -81,6 +111,7 @@ Releases        | <https://github.com/kasi-x/python-copier-template-example/rele
 Citation        | [CITATION.cff](CITATION.cff)
 Security        | [SECURITY.md](SECURITY.md) — how to report a vulnerability
 Agent guide     | [AGENTS.md](AGENTS.md) — instructions for AI coding agents
+Paper + slides  | [paper/paper.qmd](paper/paper.qmd) — Quarto manuscript and deck (`paper` / `slides` / `paper-api` tasks)
 
 
 ## 🛠️ Development setup

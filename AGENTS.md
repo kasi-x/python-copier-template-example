@@ -19,6 +19,7 @@ task check          # everything above
 Run `task fix` before committing to apply formatting
 and lint fixes, then `task check` (or `lint` + `test`
 + `type-check` individually) before finishing a change.
+
 The repo-hygiene checks (secrets, workflow linting, YAML validity,
 conventional commit messages) run in CI, not as local hooks — the lint and
 fix tasks work anywhere, including outside a git repository.
@@ -52,8 +53,9 @@ Data, notebooks, and reports (`data/`, `notebooks/`, `models/`,
 ## Field rules (ethics appendix)
 
 Field rules the generator matched to this project kind (crypto choices,
-dependency license drift, data-collection copyright, LLM/MCP tool
-security, model-evaluation fairness), plus the rules your `domain_traits`
+dependency license drift, data-collection copyright, PKI trust-chain
+hygiene, LLM/MCP tool security, model-evaluation fairness), plus the
+rules your `domain_traits`
 answer selected (personal data, biometric identification, medical device
 software), and the EU Cyber Resilience Act's duties where the project is
 sold or packaged as a product. Each section opens with a scope blockquote: if its triggers do
@@ -101,7 +103,12 @@ BSL適用後コードの不正利用を主張する書簡を送付し、OpenTofu
 ## 推奨設定
 
 - allowlist方針を明文化(Apache-2.0/MIT/BSD/MPL-2.0等を許可、
-  GPL系は配布形態照合、BSL/SSPLは例外承認制)。
+  GPL系は配布形態照合、BSL/SSPLは例外承認制)。明文化の雛形:
+  ```text
+  許可: Apache-2.0 / MIT / BSD-2・3-Clause / ISC / MPL-2.0 / Python-2.0 / Unlicense
+  要照合: LGPL(リンク形態) / EPL-2.0(例外条項の範囲)
+  原則拒否・例外承認制: GPL系(配布形態照合) / AGPL / BSL / SSPL / RSAL / ELv2
+  ```
 - 依存ライセンスの列挙と照合は、生成物に同梱の `license-check` タスクが
   行う(`pip-licenses --from=mixed --partial-match`。security推奨で有効、
   CIのlintジョブから呼ばれる。fail-on はプロジェクトのライセンスから
@@ -186,7 +193,25 @@ BSL適用後コードの不正利用を主張する書簡を送付し、OpenTofu
 - 取り込み工程に利用規約・ライセンス確認ステップを置き、
   拒否措置(robots.txt/ToS)の有無をデータセットのメタデータに記録する。
 - パブリックドメイン判定は法域+著作者の没年/公表年を入力にする
-  チェッカーを通し、判定根拠を残す。
+  チェッカーを通し、判定根拠を残す。法域別の保護期間データ
+  (死後年数・団体名義・戦時加算など)はテンプレート側の単一源
+  `_shared/ethics/lang/copyright-terms.yml` に構造化してある。生成物には
+  本要約のみ同梱され、チェッカー実装時は対象法域の現行法で再確認する。
+
+具体例(取得とRAGの既定形。悪い形と良い形の対):
+
+```python
+# 取得は拒否措置を尊重する(標準庫の robots.txt パーサ)
+rp = robotparser.RobotFileParser()
+rp.set_url(base_url + "/robots.txt")
+rp.read()
+if not rp.can_fetch(USER_AGENT, url):
+    skip(url)  # 迂回(UA 偽装・IP ローテーション)を書かない
+
+# RAG は生チャンクを返さない: 既知ソースとの長い共通 n-gram を差し戻す
+if longest_common_ngram(answer, source, n=12):
+    reject("output is too close to the source")
+```
 
 ## 運用チェック
 
@@ -254,6 +279,17 @@ fairness指標は相互に両立しないことが数学的に示されている
 - データセットにdatasheet(収集方法・人口構成・既知の偏り)を添付する。
 - 分布ドリフトの監視と再評価トリガーを設け、性能の維持を前提にしない。
 - 最終判断は人間(専門家)が行うUI/フローを既定にする。
+
+具体例(集団別評価の既定出力):
+
+```python
+# 平均だけを出さない: 集団別表は評価パイプラインの標準成果物にする
+for group, rows in eval_df.groupby(["race", "sex"]):
+    subgroup_metrics[group] = sens_spec_false_pos_rate(rows)
+# 小さい集団は点推定だけにしない: bootstrap の 95% 区間を添える
+intervals = bootstrap_ci(eval_df, group_cols=["race", "sex"], n=1000)
+write_model_card(subgroup_metrics, intervals)  # リリース物に同梱する
+```
 
 ## 運用チェック
 
