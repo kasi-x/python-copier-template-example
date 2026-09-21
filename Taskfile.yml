@@ -15,13 +15,13 @@ tasks:
 
 
   fix:
-    desc: "Auto-fix formatting, lint and typos (run before committing; review the diff - typos -w rewrites identifiers too)"
+    desc: "Auto-fix formatting and lint (run before committing)"
 
     cmds:
 
       - "uv run --locked ruff check --fix ."
 
-      - "uv run --locked ruff format . && uv run --locked typos -w ."
+      - "uv run --locked ruff format ."
 
 
   type-check:
