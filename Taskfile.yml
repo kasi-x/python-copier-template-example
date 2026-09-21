@@ -15,7 +15,7 @@ tasks:
 
 
   fix:
-    desc: "Auto-fix formatting, lint and typos (run before committing)"
+    desc: "Auto-fix formatting, lint and typos (run before committing; review the diff - typos -w rewrites identifiers too)"
 
     cmds:
 

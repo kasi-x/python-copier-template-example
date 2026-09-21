@@ -285,7 +285,7 @@ fairness指標は相互に両立しないことが数学的に示されている
 ```python
 # 平均だけを出さない: 集団別表は評価パイプラインの標準成果物にする
 for group, rows in eval_df.groupby(["race", "sex"]):
-    subgroup_metrics[group] = sens_spec_false_pos_rate(rows)
+    subgroup_metrics[group] = sensitivity_specificity_fpr(rows)
 # 小さい集団は点推定だけにしない: bootstrap の 95% 区間を添える
 intervals = bootstrap_ci(eval_df, group_cols=["race", "sex"], n=1000)
 write_model_card(subgroup_metrics, intervals)  # リリース物に同梱する
