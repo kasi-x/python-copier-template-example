@@ -63,6 +63,19 @@ Or if it is a commandline tool:
 python -m python_copier_template_example --version
 ```
 
+The `src/` tree holds two things side by side: the importable package
+(`src/python_copier_template_example/`, tested like any other module) and the analysis
+pipeline stubs (`data/`, `features/`, `models/`, `visualization/`, each an
+empty directory with only a `.gitkeep`). The stubs are where analysis code
+goes as it graduates from `notebooks/` — promote a cell into a tested module
+there and call it from the notebook. They are linted like any other `src/`
+code, so if a helper needs a third-party import, add it to
+`[project] dependencies` (or the structured `dependencies` answer) first;
+otherwise `deptry` flags it. Rename or extend the stub set via the
+structured `src_dirs` answer (`.copier-answers.yml`, picked up by
+`copier recopy --overwrite`).
+
+
 
 
 > [!TIP]

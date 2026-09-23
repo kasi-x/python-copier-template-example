@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier
-_commit: 6.0.0-166-ge60b45f
+_commit: 6.0.0-172-g16e515f
 _src_path: https://github.com/kasi-x/python-copier-template.git
 allow_japanese: true
 author_email: kashimiya.exe@gmail.com
@@ -31,6 +31,7 @@ include_web_api: false
 license: Apache-2.0
 license_check: true
 log_library: structlog
+oj_code: false
 package_manager: uv
 package_name: python_copier_template_example
 project_type: data_science

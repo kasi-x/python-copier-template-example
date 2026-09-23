@@ -4,8 +4,16 @@ This file is for AI coding agents working in this repository. It states how
 to run the checks and where edits belong. The human-facing contribution
 guide is [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
-## Commands
+> Data-science project: `src/` holds the importable package (`src/python_copier_template_example/`)
+> beside the analysis pipeline stubs (`data/`, `features/`, `models/`,
+> `visualization/`, each a `.gitkeep` stub). Promote notebook cells into
+> tested modules there; the stubs are linted like any other `src/` code,
+> so new third-party imports need a `[project] dependencies` entry first.
+> Rename or extend the stubs via the `src_dirs` answer
+> (`.copier-answers.yml`).
 
+
+## Commands
 The `task` task runner drives the common commands:
 
 ```sh
