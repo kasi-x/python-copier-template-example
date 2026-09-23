@@ -78,6 +78,7 @@ structured `src_dirs` answer (`.copier-answers.yml`, picked up by
 
 
 
+
 > [!TIP]
 > See the [documentation](https://kasi-x.github.io/python-copier-template-example) for tutorials, how-to guides and the API reference.
 

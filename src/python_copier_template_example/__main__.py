@@ -9,7 +9,7 @@ from .logging_setup import logger
 __all__ = ["main"]
 
 
-def main(args: Sequence[str] | None = None) -> None:
+def main(args: Sequence[str] | None = None) -> int | None:
     """Argument parser for the CLI."""
     parser = ArgumentParser()
     parser.add_argument(
@@ -20,7 +20,8 @@ def main(args: Sequence[str] | None = None) -> None:
     )
     parsed = parser.parse_args(args)
     logger.info("python_copier_template_example_invoked", args=parsed)
+    return None
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

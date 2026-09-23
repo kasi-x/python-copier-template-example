@@ -61,7 +61,8 @@ Data, notebooks, and reports (`data/`, `notebooks/`, `models/`,
 ## Field rules (ethics appendix)
 
 Field rules the generator matched to this project kind (crypto choices,
-dependency license drift, data-collection copyright, PKI trust-chain
+dependency license drift, data-collection copyright, the scraping-law map,
+contest-integrity rules, PKI trust-chain
 hygiene, LLM/MCP tool security, model-evaluation fairness), plus the
 rules your `domain_traits`
 answer selected (personal data, biometric identification, medical device
