@@ -1,11 +1,12 @@
 # Changes here will be overwritten by Copier
-_commit: 6.1.0-9-g1ae8f82
+_commit: 6.1.0-24-gcb47da7
 _src_path: https://github.com/kasi-x/python-copier-template.git
 allow_japanese: true
 author_email: kashimiya.exe@gmail.com
 author_name: kashi-x
 author_orcid: ''
 ci_provider: github_actions
+cicd_extras: true
 cloud_provider: none
 data_ethics: false
 data_reusable: false

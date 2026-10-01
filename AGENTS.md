@@ -71,6 +71,7 @@ sold or packaged as a product. Each section opens with a scope blockquote: if it
 not apply to the code you are editing, skip that section. Sections are
 written in Japanese.
 
+
 # ライセンス変動 — 依存の現行ライセンスを追跡し、BSL/SSPL混入を防ぐ
 
 > **適用条件**: 依存パッケージ・ツールチェーン・コンテナイメージを
